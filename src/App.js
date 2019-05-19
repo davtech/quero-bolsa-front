@@ -6,7 +6,6 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 import Main from "./main";
 import Header from './templates/header';
-import logo from './images/logo.svg';
 import './styles/App.css';
 
 library.add(faInfoCircle, faUserCircle, faWhatsapp)
