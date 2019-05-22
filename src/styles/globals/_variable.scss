@@ -1,0 +1,33 @@
+// Cores Primárias
+$azul-principal: #18ACC4; // Background color
+$amarelo-principal: #FDCB13; // Light background color
+
+// Cores Secundárias
+$azul-secundario: #007A8D;
+$amarelo-recundario: #DE9E1F;
+
+$verde: #0FA866;
+$preto: #1F2D30;
+$branco: #fff;
+
+$bg: #FBFBFB;
+
+$text: #1F2D30; // Base text color
+$text-light: #FBFBFB;
+
+$link: $azul-secundario; // Link text color
+$hover: darken($link,8%); // Link text color(hover)
+
+$border: #c8cfe4; // Border color
+
+
+$font:'Lato', sans-serif;;
+
+// Media Queries - Breakpoints
+
+$mq-xs: "(max-width: 480px)";
+$mq-sm: "(max-width: 576px)";
+$mq-md: "(max-width: 768px)";
+$mq-lg: "(max-width: 992px)";
+$mq-xl: "(max-width: 1200px)";
+$mq-xxl: "(max-width: 1600px)";

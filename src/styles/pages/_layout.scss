@@ -1,0 +1,178 @@
+// Header
+header {
+  .topbar{
+    height: 100px;
+    position: relative;
+    padding-top: 13px;
+    .info-header{
+      float: left;
+      margin-top: 20px;
+      .como-funciona{
+        float: left;
+        text-decoration: none;
+        line-height: 31px;
+        font-weight: 800;
+        border-right: 2px solid #d6d6d6;
+        padding-right: 30px;
+        margin-right: 28px;
+
+        a{
+          color: $azul-secundario;
+          text-decoration: none;          
+          svg{
+            display: block;
+            float: left; 
+            margin-right: 10px;
+            font-size: 30px;
+          }
+        }
+      }
+      .telefone-0800{
+        float: left;
+        color: #007A8D;
+        text-decoration: none;
+        line-height: 15px;
+        font-weight: 800;
+        width: 190px;
+        a{
+          color: $azul-secundario;
+          text-decoration: none;
+          svg{
+            display: block;
+            float: left;
+            margin-right: 10px;
+            font-size: 33px;
+            color: $verde;
+          }
+          span{
+            font-size: 12px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .logo{
+      position: absolute;
+      width: 196px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      h1{
+        margin: 0;
+      }
+    }
+    .perfil{
+      float:right;
+      margin-top: 20px;
+      a{
+        font-size: 18px;
+        text-decoration: none;
+        font-weight: 800;
+        color:$azul-secundario;
+        letter-spacing: 1px;
+        span{
+          svg{
+            font-size: 30px;
+            position: relative;
+            top: 3px;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+  .menu{
+    background: $azul-principal;
+    box-shadow: inset -1px 9px 15px -10px rgba(0,0,0,0.51);
+    nav{
+      ul{
+        @include clearfix;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li{          
+          float: left;
+          a{
+            display: block;
+            padding: 20px 30px;
+            font-weight: 800;
+            color: $branco;
+            letter-spacing: 1px;
+            text-decoration: none;
+            &:hover {
+              background: lighten($azul-principal, 5%);
+            }
+          }
+          a.active{
+            background: $azul-secundario;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Page
+.conteudo-pagina {
+  background: $bg;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  .titulo-pagina {
+    margin-bottom: 50px;
+    h2{
+      margin-bottom: 0;
+    }
+    p{
+      font-size: 18px;
+    }
+  }
+}
+
+
+
+// Footer
+footer{
+  color: $branco;
+
+  .contato {
+    a{
+      text-decoration: none;
+      color: $branco;
+      font-weight: 600;
+      font-size: 18px;
+      &:hover{
+        color: darken($branco, 20%);
+      }
+      span {
+        font-size: 14px;
+      }
+    }
+
+    background: darken($azul-principal, 12%);
+    padding: 30px 0;
+    @include clearfix;
+    span{
+      display: block;
+    }
+  }
+  .contato .container > div {
+    width: 25%;
+    float: left;
+    padding: 0 15px;
+    svg {
+      font-size: 40px;
+      display: block;
+      float: left;
+      margin-right: 10px;
+    }
+  }
+
+  .assinatura{
+    text-align: center;
+    height: 100px;
+    padding: 28px;
+    background: $azul-principal;
+  }
+}

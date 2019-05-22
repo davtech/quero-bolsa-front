@@ -1,18 +1,23 @@
 import React from 'react';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faInfoCircle, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faUserCircle, faHeart, faComments, faEnvelope, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
-import Main from "./main";
-import Header from './templates/header';
-import './styles/App.css';
+import "normalize.css"
+import "./styles/main.scss"
 
-library.add(faInfoCircle, faUserCircle, faWhatsapp)
+
+import Header from './templates/header';
+import Main from "./main";
+import Footer from "./templates/footer"
+
+library.add(faInfoCircle, faUserCircle, faWhatsapp, faHeart, faComments, faEnvelope, faPlusCircle)
 
 export default props => (
   <div className='application'>  
       <Header />
-      <Main />    
+      <Main />
+      <Footer />
   </div>
 )

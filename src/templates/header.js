@@ -1,5 +1,6 @@
-import React from 'react'
-import Menu from "./menu"
+import React from 'react';
+import Menu from "./menu";
+import logo from "../images/logo-quero-bolsa.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default props => (
@@ -11,22 +12,25 @@ export default props => (
             <FontAwesomeIcon icon="info-circle" /> Como funciona
           </a>
         </div>
-        <div className="0800">
+        <div className="telefone-0800">
           <a href="tel:0800123222" title="Entre em contado">
-            <FontAwesomeIcon icon={['fab', 'whatsapp']} /> 0800 123 222
+            <FontAwesomeIcon icon={['fab', 'whatsapp']} /> 0800 123 222  <br />
+            <span>Envie mensagem ou ligue</span>
           </a>
         </div>
       </div>
+
       <div className="logo">
         <h1>
-          <a href="/" title="Recarregar a p[agina">
-            <img src="./images/logo.png" alt="Quero Bolsa" />
+          <a href="/" title="Recarregar a pagina">
+            <img src={logo} alt="Quero Bolsa" />
           </a>
         </h1>
       </div>
+      
       <div className="perfil">
         <a href="#substituir" title="Informações do seu perfil">
-          <p>David Bastos <FontAwesomeIcon icon="user-circle" /></p> 
+          <span>David Bastos <FontAwesomeIcon icon="user-circle" /></span> 
         </a>
       </div>
     </div>
