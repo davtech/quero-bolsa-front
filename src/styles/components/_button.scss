@@ -12,6 +12,7 @@
     text-decoration: none;
     border: 1px solid $link;
     transition: all .2s;
+    border-radius: 10px;
     &:hover {
         background-color: $link;
         color: #fff;
@@ -20,12 +21,12 @@
     }
 }
 .btn-light {
-    border-color: darken($border, 8%);
-    color: $text-light;
+    border-color: $azul-principal;
+    color: $azul-principal;
     &:hover {
-        background-color: $text-light;
-        border-color: transparent;
-        color: #fff;
+        border-color: $azul-principal;
+        color: $azul-principal;
+        background: $branco;
     }
 }
 .btn-primary {

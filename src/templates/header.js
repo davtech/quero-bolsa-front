@@ -9,7 +9,7 @@ export default props => (
       <div className="info-header">          
         <div className="como-funciona">
           <a href="#como-funciona" title="Saiba mais de como funciona a querobolsa.com">
-            <FontAwesomeIcon icon="info-circle" /> Como funciona
+            <FontAwesomeIcon icon="info-circle" /> <span>Como funciona</span> <span className="mobile">Ajuda</span>
           </a>
         </div>
         <div className="telefone-0800">
@@ -30,7 +30,7 @@ export default props => (
       
       <div className="perfil">
         <a href="#substituir" title="Informações do seu perfil">
-          <span>David Bastos <FontAwesomeIcon icon="user-circle" /></span> 
+          <span>David Bastos </span> <FontAwesomeIcon icon="user-circle" /> <span className="mobile">Conta</span>
         </a>
       </div>
     </div>

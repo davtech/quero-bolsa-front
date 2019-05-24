@@ -7,6 +7,10 @@ header {
     .info-header{
       float: left;
       margin-top: 20px;
+      @media only screen and (max-width: 1000px) {
+        margin-top: 10px;
+      }
+
       .como-funciona{
         float: left;
         text-decoration: none;
@@ -15,6 +19,22 @@ header {
         border-right: 2px solid #d6d6d6;
         padding-right: 30px;
         margin-right: 28px;
+        @media only screen and (max-width: 1000px) {
+          padding-right: 10px;
+          text-align: center;
+        }
+          span{
+            @media only screen and (max-width: 1000px) {
+              display: none;
+            }
+          }
+          .mobile {
+            display: none;
+            @media only screen and (max-width: 1000px) {
+              display: block;
+              font-weight: 400;
+            }
+          }
 
         a{
           color: $azul-secundario;
@@ -24,6 +44,9 @@ header {
             float: left; 
             margin-right: 10px;
             font-size: 30px;
+            @media only screen and (max-width: 1000px) {
+              margin-left: 10px;
+            }
           }
         }
       }
@@ -34,6 +57,9 @@ header {
         line-height: 15px;
         font-weight: 800;
         width: 190px;
+        @media only screen and (max-width: 1000px) {
+          display: none;
+        }
         a{
           color: $azul-secundario;
           text-decoration: none;
@@ -58,13 +84,24 @@ header {
       right: 0;
       margin-left: auto;
       margin-right: auto;
+      @media only screen and (max-width: 1000px) {
+        width: 160px;;
+      }
       h1{
         margin: 0;
+        img{
+          width: 100%;
+        }
       }
     }
     .perfil{
       float:right;
       margin-top: 20px;
+      @media only screen and (max-width: 1000px) {
+        padding-left: 10px;
+        border-left: 2px solid #d6d6d6; 
+        margin-top: 10px;
+      }
       a{
         font-size: 18px;
         text-decoration: none;
@@ -72,20 +109,68 @@ header {
         color:$azul-secundario;
         letter-spacing: 1px;
         span{
-          svg{
-            font-size: 30px;
-            position: relative;
-            top: 3px;
-            margin-left: 10px;
+          @media only screen and (max-width: 1000px) {
+            display: none;
           }
         }
+        .mobile{
+          display: none;
+          @media only screen and (max-width: 1000px) {
+            display: block;
+            font-weight: 400;
+            font-size: 16px;
+            margin-top: 8px;
+          }
+        }
+        svg{
+          font-size: 30px;
+          position: relative;
+          top: 3px;
+          margin-left: 10px;
+          
+        }
+        
       }
     }
   }
   .menu{
     background: $azul-principal;
     box-shadow: inset -1px 9px 15px -10px rgba(0,0,0,0.51);
+    @include clearfix;
+
+    .menu-responsivo {
+      display: none;
+      @media only screen and (max-width: 560px) {
+        display: block
+      }
+
+      button, a{
+        display: block;
+        padding: 20px 30px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: 1px;
+        text-decoration: none;
+      }
+
+      .minha-conta{
+        float: left;
+      }
+
+      .slide-down-menu {
+        float: right;
+      }
+    }
+
     nav{
+      overflow: hidden;
+      @media only screen and (max-width: 560px) {
+        display: none;
+        width: 100%;
+        background: $preto;
+        padding-left: 0;
+        padding-right: 0;
+      }
       ul{
         @include clearfix;
         list-style: none;
@@ -93,6 +178,9 @@ header {
         margin: 0;
         li{          
           float: left;
+            @media only screen and (max-width: 560px) {
+              width: 100%;
+            }
           a{
             display: block;
             padding: 20px 30px;
@@ -108,6 +196,12 @@ header {
             background: $azul-secundario;
           }
         }
+      }
+    }
+    nav.nav-resp{
+      display: none;
+      @media only screen and (max-width: 560px) {
+        display: block;
       }
     }
   }
@@ -137,16 +231,29 @@ footer{
   color: $branco;
 
   .contato {
+    .container{
+      @media only screen and (max-width: 700px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
     a{
       text-decoration: none;
       color: $branco;
       font-weight: 600;
       font-size: 18px;
+      @media only screen and (max-width: 700px) {
+        // text-align: center;
+        display: block;
+      }
       &:hover{
         color: darken($branco, 20%);
       }
       span {
         font-size: 14px;
+        @media only screen and (max-width: 700px) {
+          display: none;
+        }
       }
     }
 
@@ -161,11 +268,37 @@ footer{
     width: 25%;
     float: left;
     padding: 0 15px;
+    @media only screen and (max-width: 700px) {
+      width: 33.33%;
+      text-align: center;
+    }
     svg {
       font-size: 40px;
       display: block;
       float: left;
       margin-right: 10px;
+      @media only screen and (max-width: 700px) {
+        display: block;
+        width: 100%;
+        margin: auto;
+      }
+    }
+  }
+  .telefone {
+    @media only screen and (max-width: 700px) {
+      width: 100% !important;
+      border-bottom: 3px solid $azul-principal;
+      padding-bottom: 30px !important;
+      margin-bottom: 20px;
+      text-align: left !important;
+      svg{
+        display: block !important;
+        margin-right: 15px !important;
+        width: auto !important;
+      }
+    }
+    span{
+      display: block !important;
     }
   }
 

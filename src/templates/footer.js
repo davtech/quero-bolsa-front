@@ -13,21 +13,21 @@ export default props => (
         </div>
 
         <div className="chat">
-          <a href="tel:0800123222" title="Entre em contado">
+          <a href="#chat" title="Entre em contado">
             <FontAwesomeIcon icon="comments" /> Chat ao vivo
             <span>Seg - Sex 8h-22h</span>
           </a>
         </div>
         
         <div className="email">
-          <a href="tel:0800123222" title="Entre em contado">
+          <a href="#e-mail" title="Entre em contado">
             <FontAwesomeIcon icon="envelope" /> Mande um e-mail  
             <span>Respondemos rapidinho</span>
           </a>
         </div>
 
         <div className="ajuda">
-          <a href="tel:0800123222" title="Entre em contado">
+          <a href="#ajuda" title="Entre em contado">
             <FontAwesomeIcon icon="info-circle" /> Central de ajuda  
             <span>Encontre todas as respostas</span>
           </a>
