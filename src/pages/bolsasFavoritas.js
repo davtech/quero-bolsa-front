@@ -43,18 +43,57 @@ export default class Favoritos extends Component {
   constructor() {
     super();
 
-    this.state = {
+    this.state = { 
+      cursos: [],
+      filtros: {
+        selecyCidades: "",
+        selectNomeCurso: "",
+      },     
+      
       modalIsOpen: false
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
+    // this.componentDidMount()
   }
 
+  componentDidMount() {
+    // buscaCursos() {
+      axios.get(`${CURSOS}`)
+        .then(res => {
+          // const cursos = res.data;
+          this.setState({...this.state,  cursos: res.data});
+        })
+    // }
+  }
+
+  handleChange(event) {
+    // this.setState({
+    //   selectCidades: event.target.value,
+    //   selectNomeCurso: event.target.value
+    // });
+
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+
+
+
+
+
+  // Modal
   openModal() {
     this.setState({modalIsOpen: true});
   }
-
   closeModal() {
     this.setState({modalIsOpen: false});
   }
@@ -88,9 +127,7 @@ export default class Favoritos extends Component {
         </div>
 
         <div className="bolsas">
-          <div className="container">            
-
-            {/* Chama modal e componente adicionar */}
+          <div className="container">                        
             <div className="item adicionar">
               <a href="#add-favoritos" onClick={this.openModal} >
                 <div className="container-item">
@@ -102,11 +139,7 @@ export default class Favoritos extends Component {
                 </div>
               </a>
             </div>
-            {/* fim - elemento chama modal adicionar */}
-
             {/* Aqui lista as bolsas favoritas*/}
-
-
           </div>
         </div>
 
@@ -123,7 +156,10 @@ export default class Favoritos extends Component {
           style={customStyles}
           contentLabel="adicionar favorito"
         >          
-          <AddFavorito
+          <AddFavorito 
+            cursos={this.state.cursos}
+            select={this.state.select}
+            handleChange={this.handleChange}
             closeModal={this.closeModal}
           />
 
