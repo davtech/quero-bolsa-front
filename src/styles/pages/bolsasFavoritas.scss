@@ -3,7 +3,8 @@
   .item {
     width: 25%;
     float: left;
-    padding: 0 20px;    
+    padding: 0 20px;  
+    margin-bottom: 30px;  
     @media only screen and (max-width: 1100px) {
       width: 50%;
     }
@@ -12,13 +13,90 @@
     }
     .container-item{
       background: $branco;
-      height: 450px;
+      min-height: 450px;
       box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.15);
-      padding: 10px 30px;
+      padding: 20px 30px;
+      text-align: center;
+      
+      .logo-inst {        
+        text-align: center;
+        height: 60px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        img{
+          height: 100%;
+        }                
+      }
+
+      .nome-inst {
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-align: center;
+        p{
+          margin-bottom: 0px;
+        }
+      }
+
+      .nome-curso {
+        font-size: 14px;
+        font-weight: 700;
+        color: $azul-principal;
+        text-align: center;
+        p{
+          margin-top: 5px;
+        }
+      }
+      
+      .mensalidade {
+        >p{
+          font-size: 14px;
+        }
+        .preco-sem-desconto {
+          font-size: 12px ;
+          p{
+            margin-bottom: 5px;
+          }
+        }
+        .preco-com-desconto {
+          font-size: 16px;
+          font-weight: 700;
+          color: $verde;
+          p{
+            margin-top: 5px;
+          }
+        }
+      }
+      .botoes {
+        margin-top: 30px;
+        button{
+          padding: 5px 5px;
+        }
+        .btn-light {
+          margin-right: 5px;
+        }
+      }
+
+      .periodo-e-inicio {
+        border-top: 1px solid $border;
+        border-bottom: 1px solid $border;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        p{
+          font-weight: 700;
+          line-height: 30px;
+          span{
+            font-weight: 400;
+            font-size: 14px;
+            display: block;
+          }
+        }
+      }
     }
   }
   .adicionar {
     text-align: center;
+    
     a{
       text-decoration: none;
       color: $preto;
@@ -89,10 +167,17 @@
 
 // Modal de adicionar bolsa
 .container-modal{
+  @media only screen and (max-width: 500px) {
+    max-height: 650px;
+    overflow-y: scroll;
+  }
   h4{
     margin-top: 0px;
     font-size: 24px;
     margin-bottom: 0;
+    @media only screen and (max-width: 600px) {
+      font-size: 18px;
+    }
   }
   > p{
     margin-top: 0;
@@ -101,11 +186,22 @@
   .filtros {
     @include clearfix;
     margin-top: 20px;
+    .checkbox p{
+      margin-bottom: 15px !important;
+    }
     .filtro {
       width: 50%;
       float: left;
       padding: 0 15px;
       margin-bottom: 30px;
+      @media only screen and (max-width: 600px) {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+
+      .input-range{
+        margin-top: 20px;
+      }
       label{
         display: block;
         text-transform: uppercase;
@@ -145,6 +241,9 @@
     }
   }
   .checkbox {
+    @media only screen and (max-width: 600px) {
+      margin-bottom: 10px !important;
+    }
     label{
       display: inline !important;
       margin-right: 10px;
@@ -164,10 +263,14 @@
     margin-bottom: 15px;
     overflow: hidden;
     border-bottom: 1px solid $border;
+    @media only screen and (max-width: 600px) {
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
     .resultado {    
       margin-top: 20px;
-      width: 100%;
-      max-width: 120px;
+      width: 50%;
+      // max-width: 120px;
       float: left;
       .resultado-texto{
         display: block ;
@@ -180,8 +283,8 @@
     }
     .filtroOrdem {
       margin-top: 20px;
-      width: 100%;
-      max-width: 300px;
+      width: 50%;
+      // max-width: 300px;
       float: right;
       p{
         display: block ;
@@ -196,8 +299,8 @@
   }
 
   .listagem-cursos {
-    
-    max-height: 400px;
+    border-bottom: 1px solid $border;
+    max-height: 250px;
     overflow-y: scroll;
     tr{
       border-bottom: 1px solid $border;
@@ -249,4 +352,11 @@
     }
   }
 
+  .botoes-modal{
+    margin-top: 20px;
+    text-align: right;
+    button{
+      margin-right: 10px;
+    }
+  }
 }

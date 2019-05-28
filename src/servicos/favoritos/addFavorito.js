@@ -32,7 +32,7 @@ export default props => {
       return cursos.map((curso, index) => (
         <tr key={index}>
           <th className="checkbox">
-            <input type="checkbox" value="metadedaquery" />
+            <input value={`${curso.course.name}-${curso.university.name}`} type="checkbox" />
           </th>
 
           <th className="imagem-curso">
@@ -92,7 +92,7 @@ export default props => {
               <label>Até quanto quer pagar?</label>
                 {/* <Slider min={0} max={20} defaultValue={3} /> */}
                 <InputRange
-                  maxValue={10000}
+                  maxValue={5000}
                   minValue={100}
                   value={props.intervaloPreco}
                   onChange={props.handleRangeChange}
@@ -112,13 +112,20 @@ export default props => {
           </div>
         </div>
 
-        <div className="listagem-cursos">
-          <table>
-            <tbody>
-              {listaCursos()}
-            </tbody>
-          </table>
-        </div>
+        <form>
+          <div className="listagem-cursos">            
+            <table>
+              <tbody>
+                {listaCursos()}
+              </tbody>
+            </table>                       
+          </div>
+
+          <div className="botoes-modal">
+            <button className="btn btn-light" onClick={props.closeModal}>Cancelar</button>
+            <button className="btn btn-primary" type="submit">Adicionar bolsa(s)</button>
+          </div> 
+        </form>
 
         {/* <button onClick={this.props.closeModal}>close</button> */}
       </div>
