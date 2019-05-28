@@ -87,7 +87,9 @@ export default class Favoritos extends Component {
     const nomeCidade = this.state.selectCidades;
     const nomeCurso = this.state.selectNomeCurso;
     const intervaloPreco = this.state.intervaloPreco;
-    var cursos = this.state.cursos;
+
+    var cursos = this.state.cursosEstatico;
+
 
     if (
       this.state.selectCidades !== "" ||
@@ -136,7 +138,10 @@ export default class Favoritos extends Component {
         cursos = cursos.filter(filtroIntervaloPreco);
       }
 
-      this.setState({ cursos });
+      this.setState({ 
+        cursos
+      });
+
     } else {
       this.setState({
         cursos: this.state.cursosEstatico
