@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import BreadCrumbs from "../components/breadCrumbs";
-import ListaFavoritos from "../servicos/favoritos/listaFavoritos"
+import ListaFavoritos from "../servicos/favoritos/listaFavoritos";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -43,12 +43,13 @@ export default class Favoritos extends Component {
     this.state = {
       cursos: [],
       cursosEstatico: [],
+      cursosFavoritos: localStorage.getItem("favoritos"),
       selectCidades: "",
       selectNomeCurso: "",
       checkboxPresencial: false,
       checkboxDistancia: false,
       intervaloPreco: 5000,
-
+      checkboxCursosItens: new Map(),
       modalIsOpen: false
     };
 
@@ -56,11 +57,16 @@ export default class Favoritos extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
+    this.handleChangeCheckCursos = this.handleChangeCheckCursos.bind(this);
+    this.salvaCursoFavorito = this.salvaCursoFavorito.bind(this)
+
+    
   }
 
   componentDidMount() {
     axios.get(`${URLCURSOS}`).then(res => {
       const cursos = res.data;
+      console.log(cursos)
 
       // ordenando cursos em ordem alfabética
       cursos.sort(function(a, b) {
@@ -75,11 +81,10 @@ export default class Favoritos extends Component {
         {
           cursos: cursos,
           cursosEstatico: cursos
-        },
-        function() {
-          this.salvaCursoFavorito();
         }
       );
+
+      // this.carregaFavoritos()
     });
   }
 
@@ -87,9 +92,7 @@ export default class Favoritos extends Component {
     const nomeCidade = this.state.selectCidades;
     const nomeCurso = this.state.selectNomeCurso;
     const intervaloPreco = this.state.intervaloPreco;
-
     var cursos = this.state.cursosEstatico;
-
 
     if (
       this.state.selectCidades !== "" ||
@@ -113,15 +116,12 @@ export default class Favoritos extends Component {
       function filtroIntervaloPreco(valor) {
         return valor.price_with_discount < intervaloPreco;
       }
-
       if (this.state.selectCidades !== "") {
         cursos = cursos.filter(filtroCidade);
       }
-
       if (this.state.selectNomeCurso !== "") {
         cursos = cursos.filter(filtroNome);
       }
-
       if (
         this.state.checkboxPresencial === true &&
         this.state.checkboxDistancia === false
@@ -138,10 +138,9 @@ export default class Favoritos extends Component {
         cursos = cursos.filter(filtroIntervaloPreco);
       }
 
-      this.setState({ 
+      this.setState({
         cursos
       });
-
     } else {
       this.setState({
         cursos: this.state.cursosEstatico
@@ -153,16 +152,15 @@ export default class Favoritos extends Component {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-
     this.setState(
       {
-        [name]: value,
-        cursos: this.state.cursosEstatico
+        [name]: value
+        // cursos: this.state.cursosEstatico
       },
       function() {
         this.refresh();
       }
-    );
+    );    
   }
 
   handleRangeChange(event) {
@@ -173,16 +171,29 @@ export default class Favoritos extends Component {
       function() {
         this.refresh();
       }
-    );
+    );    
   }
 
-  salvaCursoFavorito() {
-    var favoritos = this.state.cursosEstatico;
-    console.log(favoritos);
+  handleChangeCheckCursos(e) {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    this.setState(prevState => ({ checkboxCursosItens: prevState.checkboxCursosItens.set(item, isChecked) }));    
+  }
 
-    favoritos = JSON.stringify(favoritos);
+  salvaCursoFavorito() {      
+    this.closeModal()
+    
+    var cursoMaisFaculdade = this.state.checkboxCursosItens;
+    cursoMaisFaculdade.forEach(function(value, key, map){
+      if(!value){
+        map.delete(key)
+      }
+    });
 
-    localStorage.setItem("favoritos", favoritos);
+    cursoMaisFaculdade = (Array.from(cursoMaisFaculdade.keys())).toString();
+    localStorage.setItem("favoritos", cursoMaisFaculdade)
+
+    
   }
 
   // Modal
@@ -245,35 +256,38 @@ export default class Favoritos extends Component {
                 </div>
               </a>
             </div>
-            
-            <ListaFavoritos />
-            
-            
+
+            <ListaFavoritos
+              cursosEstatico={this.state.cursosEstatico}
+              cursosFavoritos={this.state.cursosFavoritos}
+            />
           </div>
         </div>
 
-        
         <div id="add-favorito" />
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            style={customStyles}
-            // contentLabel="add-favoritos"
-          >
-            <AddFavorito
-              cursos={this.state.cursos}
-              cursosEstatico={this.state.cursosEstatico}
-              selectCidades={this.state.selectCidades}
-              selectNomeCurso={this.state.selectNomeCurso}
-              checkboxPresencial={this.state.checkboxPresencial}
-              checkboxDistancia={this.state.checkboxDistancia}
-              intervaloPreco={this.state.intervaloPreco}
-              handleRangeChange={this.handleRangeChange}
-              handleChange={this.handleChange}
-              closeModal={this.closeModal}
-            />
-          </Modal>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          // contentLabel="add-favoritos"
+        >
+          <AddFavorito
+            cursos={this.state.cursos}
+            cursosEstatico={this.state.cursosEstatico}
+            selectCidades={this.state.selectCidades}
+            selectNomeCurso={this.state.selectNomeCurso}
+            checkboxPresencial={this.state.checkboxPresencial}
+            checkboxDistancia={this.state.checkboxDistancia}
+            intervaloPreco={this.state.intervaloPreco}
+            checkboxCursosItens={this.state.checkboxCursosItens}
+            handleChangeCheckCursos={this.handleChangeCheckCursos}
+            handleRangeChange={this.handleRangeChange}
+            handleChange={this.handleChange}
+            salvaCursoFavorito={this.salvaCursoFavorito}
+            closeModal={this.closeModal}
+          />
+        </Modal>
       </div>
     );
   }

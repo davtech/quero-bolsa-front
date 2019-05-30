@@ -8,6 +8,7 @@ export default props => {
 
     const cursos = props.cursos;
     const cursosEstatico = props.cursosEstatico;
+    const checkboxCursosItens = props.checkboxCursosItens;
 
     // Extraindo cidades
     const selectOpcoesCidades = () => {
@@ -30,26 +31,32 @@ export default props => {
 
     const listaCursos = () => {
       return cursos.map((curso, index) => (
-        <tr key={index}>
-          <th className="checkbox">
-            <input value={`${curso.course.name}-${curso.university.name}`} type="checkbox" />
-          </th>
+        // <React.Fragment key={index}>
+          <tr key={index}>
+            <th className="checkbox">
+              <input
+                name={`${curso.course.name}-${curso.university.name}`} 
+                checked={checkboxCursosItens.get(`${curso.course.name}+${curso.university.name}`)}
+                onChange={props.handleChangeCheckCursos}
+                type="checkbox" />
+            </th>
 
-          <th className="imagem-curso">
-            <div className="container-img-curso">
-              <img src={curso.university.logo_url} alt={curso.university.name} />
-            </div>
-          </th>
+            <th className="imagem-curso">
+              <div className="container-img-curso">
+                <img src={curso.university.logo_url} alt={curso.university.name} />
+              </div>
+            </th>
 
-          <th className="nome-curso">
-            <p>{curso.course.name} <span className="tipo">{curso.course.level}</span></p>
-          </th>
+            <th className="nome-curso">
+              <p>{curso.course.name} <span className="tipo">{curso.course.level}</span></p>
+            </th>
 
-          <th className="preco-curso">
-            <p className="desconto">Bolsa de <span>{curso.discount_percentage}%</span></p>
-            <p className="preco">R$ {curso.price_with_discount}/mês</p>
-          </th>
-        </tr>
+            <th className="preco-curso">
+              <p className="desconto">Bolsa de <span>{curso.discount_percentage}%</span></p>
+              <p className="preco">R$ {curso.price_with_discount}/mês</p>
+            </th>
+          </tr>
+        // </React.Fragment>
       ))
     }
 
@@ -112,7 +119,7 @@ export default props => {
           </div>
         </div>
 
-        <form>
+        {/* <form> */}
           <div className="listagem-cursos">            
             <table>
               <tbody>
@@ -123,9 +130,9 @@ export default props => {
 
           <div className="botoes-modal">
             <button className="btn btn-light" onClick={props.closeModal}>Cancelar</button>
-            <button className="btn btn-primary" type="submit">Adicionar bolsa(s)</button>
+            <button className="btn btn-primary" onClick={props.salvaCursoFavorito}>Adicionar bolsa(s)</button>
           </div> 
-        </form>
+        {/* </form> */}
 
         {/* <button onClick={this.props.closeModal}>close</button> */}
       </div>
