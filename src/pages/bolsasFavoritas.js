@@ -183,17 +183,37 @@ export default class Favoritos extends Component {
   salvaCursoFavorito() {      
     this.closeModal()
     
-    var cursoMaisFaculdade = this.state.checkboxCursosItens;
+    const cursoMaisFaculdade = this.state.checkboxCursosItens;
     cursoMaisFaculdade.forEach(function(value, key, map){
       if(!value){
         map.delete(key)
       }
     });
 
-    cursoMaisFaculdade = (Array.from(cursoMaisFaculdade.keys())).toString();
-    localStorage.setItem("favoritos", cursoMaisFaculdade)
 
-    
+    var cursosEstatico = this.state.cursosEstatico;
+    var listaNomeCursos = cursoMaisFaculdade.keys() 
+    listaNomeCursos = Array.from(listaNomeCursos)
+    console.log(listaNomeCursos)
+
+    var listaDeObjetosFavoritos = [];
+
+    listaNomeCursos.forEach(function(valor, indice, array){
+      const filtro = valor.split("-");
+
+      var nomeCurso = filtro[0];
+      var nomeUniversidade = filtro[1];
+
+      listaDeObjetosFavoritos = listaDeObjetosFavoritos.concat(cursosEstatico.filter(function(valor){
+        return valor.course.name === nomeCurso;
+      }).filter(function(valor){
+        return valor.university.name === nomeUniversidade;
+      }));
+
+
+    })
+
+    console.log(listaDeObjetosFavoritos);
   }
 
   // Modal

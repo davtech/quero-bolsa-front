@@ -8,34 +8,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default props => {
 
   const cursosEstatico = props.cursosEstatico;
-  // const favoritosStorage = props.cursosFavoritos;
-
   
-  const favoritosStorage = localStorage.getItem("favoritos");
-  const favoritoCombinado = favoritosStorage.split(",");
+  // const favoritosStorage = localStorage.getItem("favoritos");
+  // const favoritoCombinado = favoritosStorage.split(",");
 
-  var cursosFavoritos= [];
+  // // console.log(favoritoCombinado)
 
-  favoritoCombinado.forEach(function(valor, indice, array){
-    const filtros = valor.split("-");
+  // var cursosFavoritos;
+
+  // favoritoCombinado.forEach(function(valor, indice, array){
+  //   const filtros = valor.split("-");
+
+  //   console.log(filtros)
     
 
-    cursosFavoritos[indice] =  cursosEstatico.filter(function(valor){
-      return valor.course.name === filtros[0];
-    });
+  //   cursosFavoritos =  cursosEstatico.filter(function(valor){
+  //     return valor.course.name === filtros[0];
+  //   });
     
-    cursosFavoritos[indice] =  cursosFavoritos[indice].filter(function(valor){
-      return valor.university.name === filtros[1];
-    });
+  //   cursosFavoritos =  cursosFavoritos.filter(function(valor){
+  //     return valor.university.name === filtros[1];
+  //   });
 
-  });
-
-  console.log();
+  // });
 
 
-  const listaCursos = () => {
-    return cursosFavoritos.map((favorito, index) => (
-      <div className="item" key={index}>
+
+  return (  
+
+    <div className="item" >
         <div className="container-item">
           <div className="logo-inst">
             <img
@@ -87,14 +88,6 @@ export default props => {
           </div>
         </div>
       </div>
-    ))
-  }
-
-
-
-  return (  
-
-    listaCursos()
 
     
   )
