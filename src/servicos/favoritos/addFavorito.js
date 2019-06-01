@@ -57,10 +57,16 @@ export default props => {
               <div className="container-img-curso">
                 <img src={curso.university.logo_url} alt={curso.university.name} />
               </div>
+              
             </th>
 
             <th className="nome-curso">
               <p>{curso.course.name} <span className="tipo">{curso.course.level}</span></p>
+
+              <div className="preco-curso-mobile">
+                <p className="desconto">Bolsa de {curso.discount_percentage}%</p>
+                <p className="preco">R$ {curso.price_with_discount}/mês</p>
+              </div>
             </th>
 
             <th className="preco-curso">
