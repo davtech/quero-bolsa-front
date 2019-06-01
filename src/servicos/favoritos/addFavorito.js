@@ -29,6 +29,18 @@ export default props => {
       ))
     }
 
+    const botaoAdicionar = () => {
+      if (checkboxCursosItens.size === 0) {
+        return (
+          <button className="btn btn-primary disabled">Adicionar bolsa(s)</button>
+        )
+      } else {
+        return(
+          <button className="btn btn-primary" onClick={props.salvaCursoFavorito}>Adicionar bolsa(s)</button>
+        )
+      }
+    }
+
     const listaCursos = () => {
       return cursos.map((curso, index) => (
         // <React.Fragment key={index}>
@@ -130,7 +142,7 @@ export default props => {
 
           <div className="botoes-modal">
             <button className="btn btn-light" onClick={props.closeModal}>Cancelar</button>
-            <button className="btn btn-primary" onClick={props.salvaCursoFavorito}>Adicionar bolsa(s)</button>
+            {botaoAdicionar()}
           </div> 
         {/* </form> */}
 

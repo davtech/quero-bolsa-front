@@ -43,7 +43,7 @@ export default class Favoritos extends Component {
     this.state = {
       cursos: [],
       cursosEstatico: [],
-      cursosFavoritos: localStorage.getItem("favoritos"),
+      cursosFavoritos: JSON.parse(localStorage.getItem("favoritos")),
       selectCidades: "",
       selectNomeCurso: "",
       checkboxPresencial: false,
@@ -52,7 +52,6 @@ export default class Favoritos extends Component {
       checkboxCursosItens: new Map(),
       modalIsOpen: false
     };
-
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -194,7 +193,6 @@ export default class Favoritos extends Component {
     var cursosEstatico = this.state.cursosEstatico;
     var listaNomeCursos = cursoMaisFaculdade.keys() 
     listaNomeCursos = Array.from(listaNomeCursos)
-    console.log(listaNomeCursos)
 
     var listaDeObjetosFavoritos = [];
 
@@ -214,6 +212,24 @@ export default class Favoritos extends Component {
     })
 
     console.log(listaDeObjetosFavoritos);
+
+    if(localStorage.getItem("favoritos") !== null) {
+      
+      console.log("lista anterior")
+
+      const listaAnterior = JSON.parse(localStorage.getItem("favoritos"));
+      const listaAtualizada = listaAnterior.concat(listaDeObjetosFavoritos)
+
+      localStorage.setItem("favoritos", JSON.stringify(listaAtualizada));
+      this.setState({
+        cursosFavoritos: listaAtualizada
+      }) 
+    } else {
+      localStorage.setItem("favoritos", JSON.stringify(listaDeObjetosFavoritos));
+      this.setState({
+        cursosFavoritos: listaDeObjetosFavoritos
+      }) 
+    }
   }
 
   // Modal

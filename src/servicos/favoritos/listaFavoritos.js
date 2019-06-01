@@ -6,89 +6,76 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default props => {
-
-  const cursosEstatico = props.cursosEstatico;
   
-  // const favoritosStorage = localStorage.getItem("favoritos");
-  // const favoritoCombinado = favoritosStorage.split(",");
 
-  // // console.log(favoritoCombinado)
+  var cursosFavoritos = JSON.parse(localStorage.getItem("favoritos"));  
+  
+  const listaCursos = () => {
+    if(props.cursosFavoritos!== null){
+      return cursosFavoritos.map((favorito, index) => (
+        <div className="item" key={index}>
+          <div className="container-item">
+            <div className="logo-inst">
+              <img
+                src={favorito.university.logo_url}
+                alt={favorito.university.name}
+              />
+            </div>
+            <div className="nome-inst">
+              <p>{favorito.university.name}</p>
+            </div>
+            <div className="nome-curso">
+              <p>{favorito.course.name}</p> 
+            </div>
+            <div className="estrelas">
+            {favorito.university.score} 
+              <Rating
+                initialRating={favorito.university.score}
+                emptySymbol={<FontAwesomeIcon icon={["far", "star"]} />}
+                fullSymbol={<FontAwesomeIcon icon="star" />}
+                readonly
+              />
+            </div>
 
-  // var cursosFavoritos;
-
-  // favoritoCombinado.forEach(function(valor, indice, array){
-  //   const filtros = valor.split("-");
-
-  //   console.log(filtros)
-    
-
-  //   cursosFavoritos =  cursosEstatico.filter(function(valor){
-  //     return valor.course.name === filtros[0];
-  //   });
-    
-  //   cursosFavoritos =  cursosFavoritos.filter(function(valor){
-  //     return valor.university.name === filtros[1];
-  //   });
-
-  // });
-
-
-
-  return (  
-
-    <div className="item" >
-        <div className="container-item">
-          <div className="logo-inst">
-            <img
-              src="https://www.tryimg.com/u/2019/04/16/unip.png"
-              alt="nome da inst"
-            />
-          </div>
-          <div className="nome-inst">
-            <p>Unip</p>
-          </div>
-          <div className="nome-curso">
-            {/* <p>{favorito.university.name}</p>  */}
-          </div>
-          <div className="estrelas">
-            3.8 
-            <Rating
-              initialRating={3.8}
-              emptySymbol={<FontAwesomeIcon icon={["far", "star"]} />}
-              fullSymbol={<FontAwesomeIcon icon="star" />}
-              readonly
-            />
-          </div>
-
-          <div className="periodo-e-inicio">
-            <p>
-              <strong>Presencial Noite</strong>
-              <span>Início das aulas em: 05/07/2019</span>
-            </p>
-          </div>
-
-          <div className="mensalidade">
-            <p>Mensalidade com o Quero bolsa:</p>
-
-            <div className="preco-sem-desconto">
+            <div className="periodo-e-inicio">
               <p>
-                <s>R$ 1000,00/mês</s>
+                <strong>{favorito.course.kind} - {favorito.course.shift}</strong>
+                <span>Início das aulas em: {favorito.start_date}</span>
               </p>
             </div>
-            <div className="preco-com-desconto">
-              <p>R$ 500,00/mês</p>
+
+            <div className="mensalidade">
+              <p>Mensalidade com o Quero bolsa:</p>
+
+              <div className="preco-sem-desconto">
+                <p>
+                  <s>R$ {favorito.full_price}/mês</s>
+                </p>
+              </div>
+              <div className="preco-com-desconto">
+                <p>R$ {favorito.price_with_discount}/mês</p>
+              </div>
+            </div>
+
+            <div className="botoes">
+              <button className="btn btn-light">Cancelar</button>
+              <button className="btn btn-oferta" type="submit">
+                Ver oferta
+              </button>
             </div>
           </div>
-
-          <div className="botoes">
-            <button className="btn btn-light">Cancelar</button>
-            <button className="btn btn-oferta" type="submit">
-              Ver oferta
-            </button>
-          </div>
         </div>
-      </div>
+      ))
+    } else {
+      return (
+        <h4>Sem cursos adicionado</h4>
+      )
+    }
+  }
 
-    
+
+
+  return (
+    listaCursos()
   )
 }

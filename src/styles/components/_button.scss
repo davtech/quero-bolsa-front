@@ -37,6 +37,17 @@
         color: #fff;
     }
 }
+.disabled{
+    background: #a9a9a9 !important;
+    border: 1px solid #a9a9a9;
+    color: #fff !important;
+    cursor: auto !important;
+    &:hover{
+        background: #a9a9a9 !important;
+        border: 1px solid #a9a9a9;
+        color: #fff !important;
+    }
+}
 .btn-oferta {
     background-color: $amarelo-recundario;
     color: $preto;
