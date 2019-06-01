@@ -60,7 +60,6 @@ export default class Favoritos extends Component {
     this.handleChangeCheckCursos = this.handleChangeCheckCursos.bind(this);
     this.salvaCursoFavorito = this.salvaCursoFavorito.bind(this);
     this.excluirCursoFavorito = this.excluirCursoFavorito.bind(this);
-    this.filtraSemestre = this.filtraSemestre.bind(this);
 
     
   }
@@ -150,7 +149,6 @@ export default class Favoritos extends Component {
     this.setState(
       {
         [name]: value
-        // cursos: this.state.cursosEstatico
       },
       function() {
         this.refresh();
@@ -203,11 +201,7 @@ export default class Favoritos extends Component {
       }));
     })
 
-    console.log(listaDeObjetosFavoritos)
-
     const cursosAnteriores = JSON.parse(localStorage.getItem("favoritos"));
-
-    // console.log(cursosAnteriores);
 
     if(cursosAnteriores !== null){
       localStorage.setItem("favoritos", JSON.stringify(listaDeObjetosFavoritos));
@@ -241,33 +235,6 @@ export default class Favoritos extends Component {
     }) 
   }
 
-  filtraSemestre(e){
-    const cursosFavoritos = JSON.parse(localStorage.getItem("favoritos"));
-    console.log(cursosFavoritos)
-    const semestre = e.target.value;
-
-    // Primeiro semestre
-    var inicioSemestre1 = new Date("01-01-2019");
-    var fimSemestre1 = new Date("01-07-2019");
-
-    var produtosPrimeiroSemestre = cursosFavoritos.filter(function (a) {
-      var hitDates = a.start_date || {};
-      console.log(hitDates)
-
-      // extract all date strings
-      hitDates = Object.keys(hitDates);
-      // convert strings to Date objcts
-      hitDates = hitDates.map(function(date) { return new Date(date); });
-      // filter this dates by startDate and endDate
-      var hitDateMatches = hitDates.filter(function(date) { return date >= inicioSemestre1 && date <= fimSemestre1 });
-      // if there is more than 0 results keep it. if 0 then filter it away
-      return hitDateMatches.length>0;
-    });
-
-    // console.log(produtosPrimeiroSemestre)
-
-  }
-
   // Modal
   openModal() {
     this.setState({ modalIsOpen: true });
@@ -291,9 +258,7 @@ export default class Favoritos extends Component {
           </div>
         </div>
 
-        <FiltraSemestre
-          filtraSemestre={this.filtraSemestre}
-        />
+        <FiltraSemestre />
 
         <div className="bolsas">
           <div className="container">
@@ -325,7 +290,6 @@ export default class Favoritos extends Component {
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
-          // contentLabel="add-favoritos"
         >
           <AddFavorito
             cursos={this.state.cursos}
