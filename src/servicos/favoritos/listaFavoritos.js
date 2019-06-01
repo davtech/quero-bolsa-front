@@ -9,6 +9,8 @@ export default props => {
   
 
   var cursosFavoritos = JSON.parse(localStorage.getItem("favoritos"));  
+
+  // console.log(props.cursosFavoritos)
   
   const listaCursos = () => {
     if(props.cursosFavoritos!== null){
@@ -58,7 +60,7 @@ export default props => {
             </div>
 
             <div className="botoes">
-              <button className="btn btn-light">Cancelar</button>
+              <button value={`${favorito.course.name}-${favorito.university.name}`} className="btn btn-light" onClick={props.excluirCursoFavorito}>Remover</button>
               <button className="btn btn-oferta" type="submit">
                 Ver oferta
               </button>
@@ -68,7 +70,7 @@ export default props => {
       ))
     } else {
       return (
-        <h4>Sem cursos adicionado</h4>
+        <div></div>
       )
     }
   }

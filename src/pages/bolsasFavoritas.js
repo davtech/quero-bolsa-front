@@ -3,6 +3,7 @@ import axios from "axios";
 
 import BreadCrumbs from "../components/breadCrumbs";
 import ListaFavoritos from "../servicos/favoritos/listaFavoritos";
+import FiltraSemestre from "../servicos/favoritos/filtraSemestre"
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -57,7 +58,9 @@ export default class Favoritos extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
     this.handleChangeCheckCursos = this.handleChangeCheckCursos.bind(this);
-    this.salvaCursoFavorito = this.salvaCursoFavorito.bind(this)
+    this.salvaCursoFavorito = this.salvaCursoFavorito.bind(this);
+    this.excluirCursoFavorito = this.excluirCursoFavorito.bind(this);
+    this.filtraSemestre = this.filtraSemestre.bind(this);
 
     
   }
@@ -82,8 +85,6 @@ export default class Favoritos extends Component {
           cursosEstatico: cursos
         }
       );
-
-      // this.carregaFavoritos()
     });
   }
 
@@ -100,41 +101,36 @@ export default class Favoritos extends Component {
       this.state.checkboxDistancia === true ||
       this.state.intervaloPreco !== 10000
     ) {
-      function filtroCidade(valor) {
-        return valor.campus.city === nomeCidade;
-      }
-      function filtroNome(valor) {
-        return valor.course.name === nomeCurso;
-      }
-      function filtroPresencial(valor) {
-        return valor.course.kind === "Presencial";
-      }
-      function filtroDistancia(valor) {
-        return valor.course.kind === "EaD";
-      }
-      function filtroIntervaloPreco(valor) {
-        return valor.price_with_discount < intervaloPreco;
-      }
       if (this.state.selectCidades !== "") {
-        cursos = cursos.filter(filtroCidade);
+        cursos = cursos.filter(function(valor){
+          return valor.campus.city === nomeCidade;
+        });
       }
       if (this.state.selectNomeCurso !== "") {
-        cursos = cursos.filter(filtroNome);
+        cursos = cursos.filter(function(valor){
+          return valor.course.name === nomeCurso;
+        });
       }
       if (
         this.state.checkboxPresencial === true &&
         this.state.checkboxDistancia === false
       ) {
-        cursos = cursos.filter(filtroPresencial);
+        cursos = cursos.filter(function(valor){
+          return valor.course.kind === "Presencial";
+        });
       } else if (
         this.state.checkboxPresencial === false &&
         this.state.checkboxDistancia === true
       ) {
-        cursos = cursos.filter(filtroDistancia);
+        cursos = cursos.filter(function(valor){
+          return valor.course.kind === "EaD";
+        });
       }
 
       if (this.state.intervaloPreco !== 10000) {
-        cursos = cursos.filter(filtroIntervaloPreco);
+        cursos = cursos.filter(function(valor){
+          return valor.price_with_discount < intervaloPreco;
+        });
       }
 
       this.setState({
@@ -189,7 +185,6 @@ export default class Favoritos extends Component {
       }
     });
 
-
     var cursosEstatico = this.state.cursosEstatico;
     var listaNomeCursos = cursoMaisFaculdade.keys() 
     listaNomeCursos = Array.from(listaNomeCursos)
@@ -198,7 +193,6 @@ export default class Favoritos extends Component {
 
     listaNomeCursos.forEach(function(valor, indice, array){
       const filtro = valor.split("-");
-
       var nomeCurso = filtro[0];
       var nomeUniversidade = filtro[1];
 
@@ -207,22 +201,18 @@ export default class Favoritos extends Component {
       }).filter(function(valor){
         return valor.university.name === nomeUniversidade;
       }));
-
-
     })
 
-    console.log(listaDeObjetosFavoritos);
+    console.log(listaDeObjetosFavoritos)
 
-    if(localStorage.getItem("favoritos") !== null) {
-      
-      console.log("lista anterior")
+    const cursosAnteriores = JSON.parse(localStorage.getItem("favoritos"));
 
-      const listaAnterior = JSON.parse(localStorage.getItem("favoritos"));
-      const listaAtualizada = listaAnterior.concat(listaDeObjetosFavoritos)
+    // console.log(cursosAnteriores);
 
-      localStorage.setItem("favoritos", JSON.stringify(listaAtualizada));
+    if(cursosAnteriores !== null){
+      localStorage.setItem("favoritos", JSON.stringify(listaDeObjetosFavoritos));
       this.setState({
-        cursosFavoritos: listaAtualizada
+        cursosFavoritos: listaDeObjetosFavoritos
       }) 
     } else {
       localStorage.setItem("favoritos", JSON.stringify(listaDeObjetosFavoritos));
@@ -230,6 +220,52 @@ export default class Favoritos extends Component {
         cursosFavoritos: listaDeObjetosFavoritos
       }) 
     }
+  }
+
+  excluirCursoFavorito(e){
+    const cursosFavoritos = JSON.parse(localStorage.getItem("favoritos"));
+    var filtros = e.target.value.split("-");
+    var nomeCurso = filtros[0];
+    var nomeUniversidade = filtros[1];
+
+    var novaLista = cursosFavoritos.filter(el => el.course.name !== nomeCurso).filter(el => el.university.name !== nomeUniversidade);
+    format(novaLista);
+
+    function format(obj) {
+      return JSON.stringify(obj, null, " ");
+    }
+
+    localStorage.setItem("favoritos", JSON.stringify(novaLista));
+    this.setState({
+      cursosFavoritos: novaLista
+    }) 
+  }
+
+  filtraSemestre(e){
+    const cursosFavoritos = JSON.parse(localStorage.getItem("favoritos"));
+    console.log(cursosFavoritos)
+    const semestre = e.target.value;
+
+    // Primeiro semestre
+    var inicioSemestre1 = new Date("01-01-2019");
+    var fimSemestre1 = new Date("01-07-2019");
+
+    var produtosPrimeiroSemestre = cursosFavoritos.filter(function (a) {
+      var hitDates = a.start_date || {};
+      console.log(hitDates)
+
+      // extract all date strings
+      hitDates = Object.keys(hitDates);
+      // convert strings to Date objcts
+      hitDates = hitDates.map(function(date) { return new Date(date); });
+      // filter this dates by startDate and endDate
+      var hitDateMatches = hitDates.filter(function(date) { return date >= inicioSemestre1 && date <= fimSemestre1 });
+      // if there is more than 0 results keep it. if 0 then filter it away
+      return hitDateMatches.length>0;
+    });
+
+    // console.log(produtosPrimeiroSemestre)
+
   }
 
   // Modal
@@ -255,27 +291,9 @@ export default class Favoritos extends Component {
           </div>
         </div>
 
-        <div className="filtro-semestre">
-          <div className="container">
-            <ul>
-              <li className="active">
-                <button className="btn btn-primary primeiro" type="button">
-                  Todos os semestres
-                </button>
-              </li>
-              <li>
-                <button className="btn btn-light" type="button">
-                  2 semestres
-                </button>
-              </li>
-              <li>
-                <button className="btn btn-light ultimo" type="button">
-                  1 semestres
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <FiltraSemestre
+          filtraSemestre={this.filtraSemestre}
+        />
 
         <div className="bolsas">
           <div className="container">
@@ -296,6 +314,7 @@ export default class Favoritos extends Component {
             <ListaFavoritos
               cursosEstatico={this.state.cursosEstatico}
               cursosFavoritos={this.state.cursosFavoritos}
+              excluirCursoFavorito={this.excluirCursoFavorito}
             />
           </div>
         </div>
