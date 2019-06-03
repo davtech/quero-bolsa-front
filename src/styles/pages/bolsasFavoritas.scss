@@ -1,5 +1,5 @@
 // favoritos
-.bolsas {
+.bolsas {  
   .item {
     width: 25%;
     float: left;
@@ -132,6 +132,13 @@
       }
     }
   }
+  .adicionar {
+    .container-item{
+      @media only screen and (max-width: 600px) {
+        min-height: 300px;
+      }
+    }
+  }
 }
 
 .filtro-semestre{
@@ -179,7 +186,7 @@
 // Modal de adicionar bolsa
 .container-modal{
   @media only screen and (max-width: 500px) {
-    max-height: 650px;
+    max-height: 683px;
     overflow-y: scroll;
   }
   h4{
