@@ -1,6 +1,10 @@
+# Quero Bolsa
+
+Responsive application for Quero Educação
+
 ## Dependencies
 
-First install the dependencies 
+First install dependencies 
 -> npm install
 
 ## Available Scripts
